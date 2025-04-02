@@ -1,0 +1,22 @@
+{% extends "home/base.html" %}
+
+{% block title %}Войти{% endblock %}
+
+{% block content %}
+    <div class="card position-absolute top-50 start-50 translate-middle" style="width: 60rem;">
+        <form action="{% url 'home:login' %}" method="post">
+            {% csrf_token %}
+            <br>
+          <div class="mb-3">
+            <label for="exampleInputEmail" class="form-label">Имя пользователя</label>
+              {{ form.login }}
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Пароль</label>
+              {{ form.password }}
+          </div>
+          <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+        <br>
+    </div>
+{% endblock %}

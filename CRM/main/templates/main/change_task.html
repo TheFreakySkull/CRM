@@ -1,0 +1,49 @@
+{% extends "home/base.html" %}
+
+{% block title %}Изменение заказа{% endblock %}
+
+{% block content %}
+    <div class="card position-absolute top-50 start-50 translate-middle" style="width: 18rem;" id="card">
+        <form action="{% url 'main:change_task' id=id %}" method="post">
+                {% csrf_token %}
+              <div class="mb-3">
+                <label for="customer_name" class="form-label">Имя клиента</label>
+                  {{ form.customer_name }}
+              </div>
+              <div class="mb-3">
+                <label for="expiry_date" class="form-label">Дата истечения срока заказа</label>
+                  <br>
+                  {{ form.expiry_date }}
+              </div>
+
+                <div class="mb-3">
+                <label for="product_description" class="form-label">Описание заказа</label>
+                  {{ form.product_description }}
+              </div>
+
+               <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    {{ form.price }}
+               </div>
+
+               <div class="mb-3">
+                <label for="contacts" class="form-label">Контакты</label>
+                {{ form.contacts }}
+               </div>
+
+              <div class="mb-3" >
+                  <label for="price" class="form-label">Качество заказа</label>
+                  {{ form.quality }}
+              </div>
+
+              <div class="mb-3">
+                <label for="type" class="form-label">Вид заказа</label>
+                {{ form.type }}
+              </div>
+
+              <button type="submit" class="btn btn-primary">Изменить</button>
+            </form>
+    </div>
+
+{% endblock %}
+

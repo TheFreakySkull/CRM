@@ -1,0 +1,30 @@
+{% extends "home/base.html" %}
+
+{% block title %}Создание нового пользователя{% endblock %}
+
+{% block content %}
+    <div class="card position-absolute top-50 start-50 translate-middle" style="width: 60rem;">
+        <form action="{% url 'home:create_user' %}" method="post">
+            {% csrf_token %}
+            <br>
+          <div class="mb-3">
+            <label for="user" class="form-label">Имя пользователя</label>
+              {{ form.username }}
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+              {{ form.password }}
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Почта</label>
+              {{ form.email }}
+          </div>
+          <div class="mb-3">
+            <label for="checkbox" class="form-label">Админ</label>
+              {{ form.is_superuser }}
+          </div>
+          <button type="submit" class="btn btn-primary">Создать пользователя</button>
+        </form>
+        <br>
+    </div>
+{% endblock %}

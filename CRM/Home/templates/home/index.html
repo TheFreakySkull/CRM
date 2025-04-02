@@ -1,0 +1,16 @@
+{% extends "home/base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="position-absolute top-50 start-50 translate-middle text-center">
+           <h1>Добро пожаловать в СRM!</h1>
+           <h5>Вы должны иметь аккаунт чтобы получить доступ к системе</h5>
+           <div class="d-grid gap-2 col-6 mx-auto">
+               <a href="{% url 'main:crm' %}">
+                   <button class="btn btn-primary " type="button">Приступить к работе в CRM</button>
+               </a>
+           </div>
+       </div>
+{% endblock %}
+

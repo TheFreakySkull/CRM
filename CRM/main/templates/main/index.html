@@ -1,0 +1,92 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}CRM{% endblock %}
+
+{% block content %}
+    {% if model|length > 0  %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Имя Клиента</th>
+              <th scope="col">Дата</th>
+              <th scope="col">Срок до</th>
+              {% if type %}
+                <th scope="col">Дата выполнения</th>
+              {% endif %}
+              <th scope="col">Описание Заказа</th>
+              <th scope="col">Цена</th>
+              <th scope="col">Контакты</th>
+              <th scope="col">Качество</th>
+              <th scope="col">Тип продукта</th>
+              {% if not type %}
+                <th scope="col">Выполнить</th>
+              {% endif %}
+              <th scope="col">Удалить</th>
+              <th scope="col">Изменить</th>
+
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            {% for row in model%}
+            <tr>
+              <th scope="row">{{ row.id }}</th>
+              <td>{{ row.customer_name }}</td>
+              <td>{{ row.date }}</td>
+              <td>{{ row.expiry_date }}</td>
+              {% if type %}
+                   <td>{{ row.complete_date }}</td>
+              {% endif %}
+              <td>{{ row.product_description }}</td>
+              <td>${{ row.price }}</td>
+              <td>{{ row.contacts }}</td>
+              <td>{{ row.quality }}</td>
+              <td>{{ row.type }}</td>
+              {% if not type %}
+                <td>
+                    <a href="{% url 'main:do_task' id=row.id %}">
+                        <button type="button" class="btn btn-success">Пометить как выполненое</button>
+                    </a>
+                </td>
+              {% endif %}
+              <td>
+                  <a href="{% url 'main:del_task' id=row.id%}">
+                      <img src="{% static 'main/Bin.png'%}" alt="Удалить" >
+                  </a>
+              </td>
+              <td>
+                  <a href="{% url 'main:change_task' id=row.id%}">
+                      <img src="{% static 'main/pencil.png'%}" alt="Изменить" >
+                  </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    {% else %}
+        <div class="position-absolute top-50 start-50 translate-middle text-center">
+            <h1>У вас нет Задач!</h1>
+            <h6>Создайте их</h6>
+            <a href="{% url 'main:create_task' %}">
+                <button class="btn btn-primary" type="button">Создать</button>
+            </a>
+
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block navbar %}
+    {% if type %}
+        <a class="navbar-brand" href="?type=False">Не выполненые задания</a>
+        <br>
+        <a class="nav-link disabled" aria-disabled="true">Выполненые задания</a>
+    {% else %}
+        <a class="nav-link disabled" aria-disabled="true">Не Выполненые задания</a>
+        <br>
+        <a class="navbar-brand" href="?type=True">Выполненые задания</a>
+    {% endif %}
+
+    <a class="navbar-brand" href="{% url 'main:create_task' %}">Создать задание</a>
+{% endblock %}
